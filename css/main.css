@@ -1,0 +1,113 @@
+:root {
+    --adw-image-container-outer-width: 100%;
+    --adw-content-container-width: 100%;
+    --adw-widget-mode-flex-direction: column;
+    --adw-image-container-padding-top: 10%;
+    --adw-title-text-font-size: '18px';
+    --adw-content-from-image-distance: 10px;
+}
+
+#adw_adWidget-root {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+#adw_ad-widget-logo {
+    display: block;
+}
+
+.adw_ad-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.adw_ad-item {
+    flex: 0 0 calc(100% / var(--items-per-row) - 20px);
+    margin: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: var(--adw-widget-mode-flex-direction);
+}
+
+.adw_ad-item-inner {
+    border: 2px solid #cccccc;
+}
+
+.adw_image-container-outer {
+    position: relative;
+    display: flex;
+    width: var(--adw-image-container-outer-width);
+    overflow: hidden;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+}
+
+.adw_content-container-outer {
+    width: var(--adw-content-container-width);
+}
+
+.adw_image-container {
+    position: relative;
+    width: 100%;
+    padding-top: var(--adw-image-container-padding-top);
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.adw_thumbnail {
+    transition: transform 0.5s ease;
+    border-radius: 3px;
+    transform: translate(0, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.adw_ad-item:hover .adw_thumbnail {
+    transform: scale(1.01);
+    text-decoration: underline;
+}
+
+.adw_ad-item a {
+    text-decoration: none;
+}
+
+.adw_ad-item:hover a {
+    text-decoration: underline;
+    text-decoration-color: #999999;
+}
+
+.adw_title-container {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 52px;
+    color: #333333;
+    font-family: Arial, sans-serif;
+    font-size: var(--adw-title-text-font-size);
+    line-height: 26px;
+    font-weight: normal;
+    margin: 0 0 5px var(--adw-content-from-image-distance);
+}
+
+.adw_branding-container {
+    color: #999999;
+    font-size: 11px;
+    font-weight: normal;
+    font-family: Arial;
+    margin: 0 0 0 var(--adw-content-from-image-distance);
+}
+
+.adw_hidden {
+    display: none;
+}
