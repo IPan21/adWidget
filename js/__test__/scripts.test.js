@@ -1,4 +1,4 @@
-import { mockResponse } from './mockResponse.js';
+import { mockResponse, mockAdsArray } from './mockResponse.js';
 import { mockWidgetConfig } from './mockWidgetConfig.js';
 import { fetchAds } from '../services/apiService.js';
 
@@ -7,11 +7,15 @@ jest.mock('../config/widgetConfig.js', () => ({
 }));
 
 jest.mock('../services/apiService.js', () => ({
-    fetchAds: jest.fn(() => Promise.resolve(mockResponse))
+    fetchAds: jest.fn(() => Promise.resolve(mockResponse.list))
 }));
 
 jest.mock('../adItems/renderAdItemByType.js', () => ({
     renderAdItemByType: jest.fn(ad => `<div class="ad-item">${ad.id}</div>`)
+}));
+
+jest.mock('../utils/loadAdItemImages.js', () => ({
+    loadAdItemImages: jest.fn(() => {})
 }));
 
 document.body.innerHTML = `
@@ -41,23 +45,24 @@ describe('Widget Initialization', () => {
 
     it('should render ads after fetching', async () => {
         expect(fetchAds).toHaveBeenCalled();
-        await new Promise(process.nextTick);
-        const container = document.getElementById('adw_myWidget-root');
-        expect(container.innerHTML).toContain('<div id="adw_ad-items-wrapper" class="adw_ad-row"></div>');
+        await new Promise(resolve => process.nextTick(resolve));
+        const widgetContainer = document.getElementById('adw_myWidget-root');
+        expect(widgetContainer.innerHTML).toContain('<div id="adw_ad-items-wrapper" class="adw_ad-row">');
+        const adsWrapper = document.getElementById('adw_ad-items-wrapper');
+        expect(adsWrapper.children.length).toBeGreaterThan(0);
+        expect(adsWrapper.children[0].classList.contains('ad-item')).toBe(true);
     });
 
     it('should update --items-per-row on window resize', () => {
         const container = document.getElementById('adw_myWidget-root');
+        const responsiveBreakpoints = [...window.AdWidgetConfig.responsiveBreakpoints]
 
-        const breakpoints = [500, 800, 950, 1300];
-        const expectedItemsPerRows = ['1', '3', '6', '6'];
-
-        breakpoints.forEach((size, index) => {
-            window.innerWidth = size;
+        responsiveBreakpoints.forEach((item, index) => {
+            window.innerWidth = item.maxScreenWidth;
             window.dispatchEvent(new Event('resize'));
             const style = window.getComputedStyle(container);
             const itemsPerRow = style.getPropertyValue('--items-per-row').trim();
-            expect(itemsPerRow).toBe(expectedItemsPerRows[index]);
+            expect(Number(itemsPerRow)).toBe(item.itemsPerRow);
         });
     });
 });

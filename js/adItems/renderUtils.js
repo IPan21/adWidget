@@ -1,3 +1,5 @@
+import { calculateImageDimensions } from '../utils/applyWidgetConfigDimensions.js';
+
 export const renderAdItem = ({ ad, branding, targetType }) => {
     const { imageAspectRatio } = window.AdWidgetConfig;
     const imageContainerPaddingTop = calculateImageDimensions(imageAspectRatio);
@@ -17,12 +19,3 @@ export const renderAdItem = ({ ad, branding, targetType }) => {
     `;
 };
 
-// Calculation of image container height for configured aspect ratio
-function calculateImageDimensions(aspectRatio) {
-    if (aspectRatio && aspectRatio.width && aspectRatio.height) {
-        const { width, height } = aspectRatio;
-        const ratio = (height / width) * 100;
-        return `${ratio}%`;
-    }
-    return '0%';  // Return 0% if the config is not set properly
-}

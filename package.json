@@ -3,6 +3,7 @@
     "@babel/core": "^7.24.5",
     "@babel/preset-env": "^7.24.5",
     "babel-jest": "^29.7.0",
+    "http-server": "^14.1.1",
     "jest": "^29.7.0"
   },
   "dependencies": {
@@ -15,9 +16,12 @@
     "testEnvironment": "jsdom"
   },
   "babel": {
-    "presets": ["@babel/preset-env"]
+    "presets": [
+      "@babel/preset-env"
+    ]
   },
- "scripts":{
-    "test": "jest"
- }
+  "scripts": {
+    "test": "npx jest",
+    "start": "http-server . -o"
+  }
 }

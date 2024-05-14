@@ -73,7 +73,6 @@
 
 .adw_ad-item:hover .adw_thumbnail {
     transform: scale(1.01);
-    text-decoration: underline;
 }
 
 .adw_ad-item a {
@@ -101,6 +100,7 @@
 }
 
 .adw_branding-container {
+    display: block;
     color: #999999;
     font-size: 11px;
     font-weight: normal;

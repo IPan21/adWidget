@@ -23,7 +23,7 @@ const getCloudinaryUrlPartWithParams = () => {
     try {
         const { width, height } = calculateImageSize();
         const cloudinaryBaseUrl = "https://res.cloudinary.com/du8iytc06/image/fetch/";
-        const cloudinaryParams = `w_${width},h_${height},c_fill,g_auto,f_webp`;
+        const cloudinaryParams = `w_${width},h_${height},c_fill,g_auto,f_auto`;
         return `${cloudinaryBaseUrl}${cloudinaryParams}`;
     } catch (error) {
         logError(`Error generating Cloudinary URL part: ${error}`);

@@ -6,14 +6,15 @@ export const loadAdItemImages = ({ cloudinaryUrl, thumbnailImage: highResUrl, co
     const placeholder = "/assets/placeholder.webp";
 
     const appendImage = (container) => {
-        try {
-            const img = preloadImage(cloudinaryUrl, highResUrl, placeholder);
-            img.classList.add('adw_thumbnail');
-            img.id = `adw_thumbnail-${containerId}`;
-            container.appendChild(img);
-        } catch (error) {
-            logError(`Error appending image in container ${containerId}: ${error}`);
-        }
+        preloadImage(cloudinaryUrl, highResUrl, placeholder)
+            .then(img => {
+                img.classList.add('adw_thumbnail');
+                img.id = `adw_thumbnail-${containerId}`;
+                container.appendChild(img);
+            })
+            .catch(error => {
+                logError(`Error appending image in container ${containerId}: ${error}`);
+            });
     };
 
     try {

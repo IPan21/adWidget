@@ -23,7 +23,7 @@ export const applyWidgetConfigDimensions = () => {
     }
 }
 
-const calculateImageDimensions = (aspectRatio) => {
+export const calculateImageDimensions = (aspectRatio) => {
     try {
         if (aspectRatio && aspectRatio.width && aspectRatio.height) {
             const { width, height } = aspectRatio;
